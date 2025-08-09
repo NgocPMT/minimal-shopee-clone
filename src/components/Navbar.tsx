@@ -10,7 +10,7 @@ const Navbar = () => {
 
   return (
     <nav className="bg-amber-700 text-amber-50 flex justify-center items-center gap-4 py-2 pl-6 pr-4">
-      <div className="flex items-center bg-amber-50 gap-1.5 text-gray-700 py-1 px-2 w-full">
+      <div className="flex items-center bg-amber-50 gap-1.5 text-gray-700 py-1 px-2 w-full rounded-sm">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
