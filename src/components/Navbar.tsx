@@ -9,7 +9,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-amber-700 text-amber-50 flex justify-center items-center gap-4 py-2 pl-6 pr-4">
+    <nav className="bg-amber-700 text-amber-50 flex justify-center items-center gap-4 py-2.5 pl-6 pr-4">
       <div className="flex items-center bg-amber-50 gap-1.5 text-gray-700 py-1 px-2 w-full rounded-sm">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -28,9 +28,9 @@ const Navbar = () => {
         <input
           type="text"
           value={searchInput}
-          placeholder="What you want to buy?"
+          placeholder="What do you want to buy?"
           onChange={handleSearchInput}
-          className="grow placeholder:text-amber-700 focus:outline-0"
+          className="grow placeholder:text-amber-700 focus:outline-0 text-sm p-0.5"
         />
       </div>
       <Link to="cart">
