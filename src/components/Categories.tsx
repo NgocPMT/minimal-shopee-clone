@@ -2,7 +2,7 @@ import CategoryLink from "./CategoryLink";
 
 const Categories = () => {
   return (
-    <section className="flex justify-center items-center gap-4 p-4 pt-6 bg-white">
+    <section className="flex justify-center items-center gap-5 p-4 pt-6 bg-white">
       <CategoryLink to="#" icon={MenSvg} text="Men Clothes" />
       <CategoryLink to="#" icon={WomenSvg} text="Women Clothes" />
       <CategoryLink to="#" icon={ElectronicsSvg} text="Electronics" />

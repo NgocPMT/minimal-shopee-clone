@@ -9,8 +9,8 @@ type CategoryLinkProps = {
 
 const CategoryLink = ({ to, icon, text }: CategoryLinkProps) => {
   return (
-    <Link to={to} className="flex flex-col items-center gap-1">
-      <div className="ring ring-gray-300 rounded-sm p-2 w-fit text-amber-700">
+    <Link to={to} className="flex flex-col items-center gap-1 group">
+      <div className="ring ring-gray-300 group-hover:ring-amber-600 group-focus:ring-amber-600 rounded-sm p-2 w-fit text-amber-700">
         {icon}
       </div>
       <p className="text-xs">{text}</p>
