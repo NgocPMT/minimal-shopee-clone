@@ -1,5 +1,6 @@
 import Categories from "../components/Categories";
 import heroBackground from "../assets/images/hero-background.jpg";
+import Recommended from "../components/Recommended";
 import { Link } from "react-router";
 
 const Home = () => {
@@ -22,6 +23,7 @@ const Home = () => {
         </Link>
       </section>
       <Categories />;
+      <Recommended />
     </div>
   );
 };
