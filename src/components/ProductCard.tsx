@@ -13,8 +13,8 @@ const ProductCard = ({
     <div className="bg-white w-full border border-gray-300 hover:border-amber-600 hover:-translate-y-0.5 rounded-sm overflow-hidden">
       <img src={imgURL} alt="" />
       <div className="p-2">
-        <h5 className="line-clamp-2">{title}</h5>
-        <p className="text-amber-700">${price}</p>
+        <h5 className="line-clamp-2 text-sm">{title}</h5>
+        <p className="text-amber-700 text-lg pt-2">${price}.00</p>
       </div>
     </div>
   );
