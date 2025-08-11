@@ -8,7 +8,7 @@ const routes = [
     children: [
       { path: "/", element: <Home /> },
       { path: "/cart", element: <p>Card</p> },
-      { path: "product/:productId", element: <ProductDetails /> },
+      { path: "products/:productId", element: <ProductDetails /> },
     ],
   },
 ];
