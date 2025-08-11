@@ -51,7 +51,7 @@ const Recommended = () => {
     <section>
       <div className="bg-white flex justify-between px-3 py-2 mt-4">
         <h2 className="text-amber-700">RECOMMENDED</h2>
-        <Link to="#" className="text-gray-500 hover:text-black text-sm">
+        <Link to="shop" className="text-gray-500 hover:text-black text-sm">
           More &gt;
         </Link>
       </div>
