@@ -1,4 +1,7 @@
+import { Link } from "react-router";
+
 type ProductCardProps = {
+  id: number;
   image?: string;
   title: string;
   price: number;
@@ -6,13 +9,17 @@ type ProductCardProps = {
 };
 
 const ProductCard = ({
+  id,
   image = "https://blocks.astratic.com/img/general-img-landscape.png",
   title,
   price,
   rating,
 }: ProductCardProps) => {
   return (
-    <div className="bg-white w-full max-w-80 border border-gray-300 hover:border-2 hover:border-amber-600 hover:-translate-y-0.5 rounded-md overflow-hidden flex flex-col max-h-72 relative">
+    <Link
+      to={`product/${id}`}
+      className="bg-white w-full max-w-80 border border-gray-300 hover:border-2 hover:border-amber-600 hover:-translate-y-0.5 rounded-md overflow-hidden flex flex-col max-h-72"
+    >
       <img src={image} alt="" className="w-full h-[65%] object-contain " />
       <div className="p-2 flex flex-col justify-between grow-1">
         <h5 className="line-clamp-2 text-sm text-black sm:text-md">{title}</h5>
@@ -24,7 +31,7 @@ const ProductCard = ({
           </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

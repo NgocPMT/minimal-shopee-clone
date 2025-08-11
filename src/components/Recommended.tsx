@@ -64,6 +64,7 @@ const Recommended = () => {
           {products.slice(0, recommendedLength).map((product) => (
             <ProductCard
               key={product.id}
+              id={product.id}
               image={product.image}
               title={product.title}
               price={product.price}
