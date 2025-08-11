@@ -1,4 +1,4 @@
-import ColorOptions from "./ColorOptions";
+import ColorOptions from "../components/ColorOptions";
 
 const ProductDetails = () => {
   return (
