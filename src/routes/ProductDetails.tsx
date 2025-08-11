@@ -65,6 +65,13 @@ const ProductDetails = () => {
             <hr className="mb-2" />
             <ColorOptions colors={["black", "white", "blue", "pink"]} />
             <Options title="Size" options={["S", "M", "L"]} />
+            <hr className="mt-4" />
+            <section>
+              <h5 className="text-black text-md font-bold mt-2 mb-1">
+                Description
+              </h5>
+              <p className="text-gray-700 text-sm">{product.description}</p>
+            </section>
           </div>
           <div className="fixed bottom-0 left-0 right-0 flex justify-center">
             <button className="py-3 grow cursor-pointer bg-green-600 hover:bg-green-500 text-white">

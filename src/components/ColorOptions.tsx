@@ -12,7 +12,7 @@ const ColorOptions = ({ colors }: ColorOptionsProps) => {
 
   return (
     <section className="mb-3">
-      <h5 className="font-bold text-black mb-2 text-lg">Color</h5>
+      <h5 className="font-bold text-black mb-2 text-md">Color</h5>
       <div className="flex gap-3">
         {colors.map((color) => (
           <ColorOption

@@ -15,7 +15,7 @@ const Options = ({ title, options }: OptionProps) => {
 
   return (
     <section>
-      <h5 className="font-bold text-black mb-2 text-lg">{title}</h5>
+      <h5 className="font-bold text-black mb-2 text-md">{title}</h5>
       <div className="flex gap-3">
         {options.map((option) => (
           <Option
