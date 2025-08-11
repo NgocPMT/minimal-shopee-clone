@@ -11,7 +11,7 @@ const ColorOptions = ({ colors }: ColorOptionsProps) => {
   const handleActive = (color: string) => setActiveColor(color);
 
   return (
-    <section className="p-2">
+    <section className="mb-3">
       <h5 className="font-bold text-black mb-2 text-lg">Color</h5>
       <div className="flex gap-3">
         {colors.map((color) => (
