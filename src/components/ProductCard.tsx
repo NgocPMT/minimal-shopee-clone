@@ -18,7 +18,7 @@ const ProductCard = ({
 }: ProductCardProps) => {
   return (
     <Link
-      to={`products/${id}`}
+      to={`/products/${id}`}
       className="bg-white w-full max-w-80 border border-gray-300 hover:border-2 hover:border-amber-600 hover:-translate-y-0.5 rounded-md overflow-hidden flex flex-col max-h-72"
     >
       <img src={image} alt="" className="w-full h-[65%] object-contain " />
