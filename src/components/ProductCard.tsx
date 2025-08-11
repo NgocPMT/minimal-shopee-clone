@@ -12,10 +12,10 @@ const ProductCard = ({
   rating,
 }: ProductCardProps) => {
   return (
-    <div className="bg-white w-full border border-gray-300 hover:border-2 hover:border-amber-600 hover:-translate-y-0.5 rounded-md overflow-hidden flex flex-col max-h-72 relative">
+    <div className="bg-white w-full max-w-80 border border-gray-300 hover:border-2 hover:border-amber-600 hover:-translate-y-0.5 rounded-md overflow-hidden flex flex-col max-h-72 relative">
       <img src={image} alt="" className="w-full h-[65%] object-contain " />
       <div className="p-2 flex flex-col justify-between grow-1">
-        <h5 className="line-clamp-2 text-sm text-black">{title}</h5>
+        <h5 className="line-clamp-2 text-sm text-black sm:text-md">{title}</h5>
         <div className="flex justify-between items-center">
           <p className="text-amber-700 text-lg">${price}</p>
           <p className="flex items-center text-md text-gray-600">
