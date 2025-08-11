@@ -2,12 +2,22 @@
 
 @theme {
   --animate-push-in-bottom: push-in-bottom 0.4s ease-in-out;
+  --animate-push-out-bottom: push-out-bottom 0.4s ease-in-out;
   @keyframes push-in-bottom {
     from {
       transform: translateY(85%);
     }
     to {
       transform: translateY(0);
+    }
+  }
+
+  @keyframes push-out-bottom {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(100%);
     }
   }
 }

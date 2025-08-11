@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { Link } from "react-router";
 
@@ -20,6 +20,7 @@ const Shop = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isFiltersShow, setIsFiltersShow] = useState<boolean>(false);
+  const filterRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,7 +55,9 @@ const Shop = () => {
 
   const closeFilters = () => {
     if (!isFiltersShow) return;
-    setIsFiltersShow(false);
+    filterRef.current?.classList.remove("animate-push-in-bottom");
+    filterRef.current?.classList.add("animate-push-out-bottom");
+    setTimeout(() => setIsFiltersShow(false), 350);
   };
 
   return (
@@ -62,7 +65,10 @@ const Shop = () => {
       {isFiltersShow && (
         <>
           <div className="fixed left-0 top-0 right-0 bottom-0 bg-black/20 z-10"></div>
-          <div className="fixed z-20 m-0 p-0 bottom-0 left-0 right-0 min-h-[80vh] bg-white animate-push-in-bottom">
+          <div
+            className="fixed z-20 m-0 p-0 bottom-0 left-0 right-0 min-h-[80vh] bg-white animate-push-in-bottom"
+            ref={filterRef}
+          >
             <div className="flex justify-between p-2 border-b border-gray-300">
               <p className="font-semibold">Filters</p>
               <button onClick={closeFilters} className="cursor-pointer">
