@@ -2,6 +2,7 @@ import { useParams } from "react-router";
 import ColorOptions from "../components/ColorOptions";
 import Options from "../components/Options";
 import { useEffect, useState } from "react";
+import starSvg from "../assets/starSvg";
 interface Product {
   id: number;
   title: string;
@@ -61,7 +62,14 @@ const ProductDetails = () => {
           />
           <div className="p-2 mb-6">
             <h5 className="text-black text-xl mb-2">{product.title}</h5>
-            <p className="mb-2 text-2xl text-amber-700">{`$${product.price}`}</p>
+            <div className="flex justify-between">
+              <p className="mb-2 text-2xl text-amber-700">{`$${product.price}`}</p>
+              <p className="flex items-center text-lg text-gray-500">
+                {product.rating.rate}
+                {starSvg}
+                <span>({product.rating.count} rated)</span>
+              </p>
+            </div>
             <hr className="mb-2" />
             <ColorOptions colors={["black", "white", "blue", "pink"]} />
             <Options title="Size" options={["S", "M", "L"]} />
