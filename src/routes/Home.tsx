@@ -22,7 +22,7 @@ const Home = () => {
           Shop Now
         </Link>
       </section>
-      <Categories />;
+      <Categories />
       <Recommended />
     </div>
   );

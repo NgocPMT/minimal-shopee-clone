@@ -49,7 +49,7 @@ const Recommended = () => {
 
   return (
     <section>
-      <div className="bg-white flex justify-between px-3 py-2">
+      <div className="bg-white flex justify-between px-3 py-2 mt-4">
         <h2 className="text-amber-700">RECOMMENDED</h2>
         <Link to="#" className="text-gray-500 hover:text-black text-sm">
           More &gt;
@@ -60,7 +60,7 @@ const Recommended = () => {
       {error && <p className="text-red-500">{error}</p>}
 
       {products && (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 auto-rows-min gap-2 bg-gray-200 px-1 py-2 lg:min-h-[45.5vh] place-content-center">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 auto-rows-min gap-2 bg-gray-100 px-1 py-2 lg:min-h-[45.5vh] place-content-center">
           {products.slice(0, recommendedLength).map((product) => (
             <ProductCard
               key={product.id}
