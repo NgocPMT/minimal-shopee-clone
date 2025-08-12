@@ -34,7 +34,7 @@ const Shop = () => {
         <>
           <div className="fixed left-0 top-0 right-0 bottom-0 bg-black/20 z-10"></div>
           <div
-            className={`fixed z-20 p-0 bottom-0 right-0 w-full min-h-[80vh] sm:max-w-[40vw] sm:h-full bg-white ${
+            className={`fixed z-20 p-0 bottom-0 right-0 w-full min-h-[80vh] sm:max-w-[60vw] lg:max-w-[40vw] sm:h-full bg-white ${
               isMobileView ? "animate-push-in-bottom" : "animate-push-in-right"
             }`}
             ref={filterRef}
