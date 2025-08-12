@@ -1,52 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { Link } from "react-router";
-
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  rating: {
-    count: number;
-    rate: number;
-  };
-}
+import useProducts from "../hooks/useProducts";
 
 const Shop = () => {
-  const [products, setProducts] = useState<Product[] | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { products, error, loading } = useProducts();
   const [isFiltersShow, setIsFiltersShow] = useState<boolean>(false);
   const filterRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("https://fakestoreapi.com/products", {
-          mode: "cors",
-        });
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-        const data = await response.json();
-        setProducts(data);
-      } catch (err) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError("unknown error");
-        }
-        setProducts(null);
-      } finally {
-        setLoading(false);
-        setError(null);
-      }
-    };
-    fetchData();
-  }, []);
 
   const openFilters = () => {
     if (isFiltersShow) return;

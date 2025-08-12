@@ -23,12 +23,15 @@ const ProductDetails = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
     const fetchProduct = async () => {
       try {
         const response = await fetch(
           `https://fakestoreapi.com/products/${id}`,
           {
             mode: "cors",
+            signal,
           }
         );
         if (!response.ok) {
@@ -36,15 +39,18 @@ const ProductDetails = () => {
         }
         const data = await response.json();
         setProduct(data);
-      } catch (error) {
-        if (error instanceof Error) {
-          setError(error.message);
+      } catch (err) {
+        if (err instanceof DOMException && err.name === "AbortError") {
+          console.log("fetch aborted");
         } else {
-          setError("unknown error");
+          setError((err as Error).message);
         }
       }
     };
     if (id) fetchProduct();
+    return () => {
+      controller.abort();
+    };
   }, [id]);
 
   return (

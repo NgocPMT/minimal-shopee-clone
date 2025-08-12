@@ -1,51 +1,10 @@
 import { Link } from "react-router";
 import ProductCard from "./ProductCard";
-import { useEffect, useState } from "react";
-
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  rating: {
-    count: number;
-    rate: number;
-  };
-}
+import useProducts from "../hooks/useProducts";
 
 const Recommended = () => {
-  const [products, setProducts] = useState<Product[] | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { products, error, loading } = useProducts();
   const recommendedLength = 6;
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("https://fakestoreapi.com/products", {
-          mode: "cors",
-        });
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-        const data = await response.json();
-        setProducts(data);
-      } catch (err) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError("unknown error");
-        }
-        setProducts(null);
-      } finally {
-        setLoading(false);
-        setError(null);
-      }
-    };
-    fetchData();
-  }, []);
 
   return (
     <section>
