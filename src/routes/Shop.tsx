@@ -8,6 +8,8 @@ const Shop = () => {
   const [isFiltersShow, setIsFiltersShow] = useState<boolean>(false);
   const filterRef = useRef<HTMLDivElement>(null);
 
+  const isMobileView = window.matchMedia("(max-width: 639px)").matches;
+
   const openFilters = () => {
     if (isFiltersShow) return;
     setIsFiltersShow(true);
@@ -15,8 +17,14 @@ const Shop = () => {
 
   const closeFilters = () => {
     if (!isFiltersShow) return;
-    filterRef.current?.classList.remove("animate-push-in-bottom");
-    filterRef.current?.classList.add("animate-push-out-bottom");
+    if (!filterRef.current) return;
+
+    filterRef.current.classList.remove(
+      isMobileView ? "animate-push-in-bottom" : "animate-push-in-right"
+    );
+    filterRef.current.classList.add(
+      isMobileView ? "animate-push-out-bottom" : "animate-push-out-right"
+    );
     setTimeout(() => setIsFiltersShow(false), 350);
   };
 
@@ -26,10 +34,12 @@ const Shop = () => {
         <>
           <div className="fixed left-0 top-0 right-0 bottom-0 bg-black/20 z-10"></div>
           <div
-            className="fixed z-20 m-0 p-0 bottom-0 left-0 right-0 min-h-[80vh] bg-white animate-push-in-bottom"
+            className={`fixed z-20 p-0 bottom-0 right-0 w-full min-h-[80vh] sm:max-w-[40vw] sm:h-full bg-white ${
+              isMobileView ? "animate-push-in-bottom" : "animate-push-in-right"
+            }`}
             ref={filterRef}
           >
-            <div className="flex justify-between p-2 border-b border-gray-300">
+            <div className="flex justify-between p-2 sm:px-4 border-b border-gray-300">
               <p className="font-semibold">Filters</p>
               <button onClick={closeFilters} className="cursor-pointer">
                 <svg
@@ -48,7 +58,7 @@ const Shop = () => {
                 </svg>
               </button>
             </div>
-            <div className="p-2">
+            <div className="p-2 sm:p-4">
               <section className="mb-3">
                 <h5 className="font-semibold mb-3">Price</h5>
                 <div className="flex gap-3 flex-wrap">
