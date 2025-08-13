@@ -1,3 +1,5 @@
+import QuantityInput from "./QuantityInput";
+
 type CartItemProps = {
   id: number;
   image: string;
@@ -24,20 +26,6 @@ const CartItem = ({
   handlePlus,
   handleQuantityInput,
 }: CartItemProps) => {
-  const handleMinusClick = () => {
-    handleMinus(id);
-  };
-
-  const handlePlusClick = () => {
-    handlePlus(id);
-  };
-
-  const handleQuantityInputChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    handleQuantityInput(id, e);
-  };
-
   return (
     <div className="flex pb-2 mb-4 gap-4 items-center justify-between">
       <div className="flex gap-5">
@@ -46,57 +34,17 @@ const CartItem = ({
         </div>
         <div className="flex flex-col items-start">
           <h5>{title}</h5>
-          <p className="text-gray-500">
+          <p className="text-gray-500 mb-5.5">
             {variants.map((variant) => variant).join(", ")}
           </p>
-          <div className="flex ring ring-gray-400 justify-center rounded-sm mt-5.5">
-            <button
-              className="border-r border-gray-400 text-center grow p-0.5 px-1.5 cursor-pointer disabled:bg-gray-300 disabled:cursor-auto"
-              onClick={handleMinusClick}
-              disabled={quantity <= 1}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-3"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M5 12h14"
-                />
-              </svg>
-            </button>
-            <input
-              type="number"
-              value={quantity}
-              className="text-center max-w-12 grow"
-              onChange={handleQuantityInputChange}
-              min={1}
-            />
-            <button
-              className="border-l border-gray-400 text-center grow p-0.5 px-1.5 cursor-pointer"
-              onClick={handlePlusClick}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-3"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 4.5v15m7.5-7.5h-15"
-                />
-              </svg>
-            </button>
-          </div>
+          <QuantityInput
+            size={3}
+            id={id}
+            quantity={quantity}
+            handleMinus={handleMinus}
+            handlePlus={handlePlus}
+            handleQuantityInput={handleQuantityInput}
+          />
         </div>
       </div>
       <p className="text-amber-700 text-lg">${price}</p>

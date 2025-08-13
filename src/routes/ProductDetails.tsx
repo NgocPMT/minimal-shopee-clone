@@ -1,5 +1,4 @@
 import { useParams } from "react-router";
-import ColorOptions from "../components/ColorOptions";
 import Options from "../components/Options";
 import { useEffect, useState } from "react";
 import starSvg from "../assets/starSvg";
@@ -21,6 +20,21 @@ const ProductDetails = () => {
   console.log(id);
   const [product, setProduct] = useState<Product | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [quantity, setQuantity] = useState<number>(1);
+  const variants = [
+    { title: "Color", list: ["black", "white", "blue", "pink"] },
+    { title: "Size", list: ["S", "M", "L"] },
+  ];
+  const [variantActives, setVariantActives] = useState(
+    variants.map((variant) => {
+      return { title: variant.title, active: 0 };
+    })
+  );
+  const cartVariants = variants.map((variant, index) => {
+    const activeIndex = variantActives[index].active;
+    return variant.list[activeIndex];
+  });
+  console.log(cartVariants);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -53,6 +67,31 @@ const ProductDetails = () => {
     };
   }, [id]);
 
+  const handleMinusClick = () => {
+    if (quantity <= 1) return;
+    setQuantity((prevQuantity) => prevQuantity - 1);
+  };
+
+  const handlePlusClick = () => {
+    setQuantity((prevQuantity) => prevQuantity + 1);
+  };
+
+  const handleQuantityInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setQuantity(parseInt(e.target.value));
+  };
+
+  const handleVariantActives = (title: string, active: number) => {
+    setVariantActives(
+      variantActives.map((variantActive) =>
+        variantActive.title === title
+          ? { ...variantActive, active }
+          : variantActive
+      )
+    );
+  };
+
   return (
     <div className="flex flex-col md:flex-row md:min-w-[75vw] md:items-center md:justify-center md:gap-20 md:px-5 bg-white relative">
       {error && <p>{error}</p>}
@@ -66,11 +105,11 @@ const ProductDetails = () => {
             alt=""
             className="max-h-[27.5rem] object-contain md:"
           />
-          <div className="p-2 mb-6 max-w-[30rem]">
+          <div className="p-2 mb-6 max-w-[30rem] flex flex-col items-start">
             <h5 className="text-black text-xl mb-5 md:font-bold md:mb-2">
               {product.title}
             </h5>
-            <div className="flex justify-between">
+            <div className="flex justify-between w-full">
               <p className="mb-2 text-2xl text-amber-700">{`$${product.price}`}</p>
               <p className="flex items-center text-lg text-gray-500">
                 {product.rating.rate}
@@ -78,10 +117,68 @@ const ProductDetails = () => {
                 <span>({product.rating.count} rated)</span>
               </p>
             </div>
-            <hr className="mb-2" />
-            <ColorOptions colors={["black", "white", "blue", "pink"]} />
-            <Options title="Size" options={["S", "M", "L"]} />
-            <hr className="mt-4" />
+            <hr className="mb-2 w-full" />
+            {variants.map((variant, index) => {
+              const activeIndex = variantActives[index].active;
+              return (
+                <Options
+                  title={variant.title}
+                  activeIndex={activeIndex}
+                  options={variant.list}
+                  handleVariantActives={handleVariantActives}
+                />
+              );
+            })}
+            <h5 className="font-bold text-black mb-2 text-md">Quantity</h5>
+            <div className="flex ring ring-gray-400 justify-center rounded-sm">
+              <button
+                className="border-r border-gray-400 text-center grow py-1.5 px-2.5 cursor-pointer disabled:bg-gray-300 disabled:cursor-auto"
+                onClick={handleMinusClick}
+                disabled={quantity <= 1}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 12h14"
+                  />
+                </svg>
+              </button>
+              <input
+                type="number"
+                value={quantity}
+                className="text-center max-w-12 grow"
+                onChange={handleQuantityInputChange}
+                min={1}
+              />
+              <button
+                className="border-r border-gray-400 text-center grow py-1.5 px-2.5 cursor-pointer disabled:bg-gray-300 disabled:cursor-auto"
+                onClick={handlePlusClick}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 4.5v15m7.5-7.5h-15"
+                  />
+                </svg>
+              </button>
+            </div>
+            <hr className="mt-4 w-full" />
             <section>
               <h5 className="text-black text-md font-bold mt-2 mb-1">
                 Description

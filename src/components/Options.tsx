@@ -1,28 +1,30 @@
 import Option from "./Option";
-import { useState } from "react";
 
 type OptionProps = {
   title: string;
   options: string[];
+  activeIndex: number;
+  handleVariantActives: (title: string, active: number) => void;
 };
 
-const Options = ({ title, options }: OptionProps) => {
-  const [activeOption, setActiveOption] = useState<string>(options[0]);
-
-  const handleActive = (option: string) => {
-    setActiveOption(option);
-  };
-
+const Options = ({
+  title,
+  options,
+  activeIndex,
+  handleVariantActives,
+}: OptionProps) => {
   return (
-    <section>
+    <section className="mb-2.5">
       <h5 className="font-bold text-black mb-2 text-md">{title}</h5>
       <div className="flex gap-3">
-        {options.map((option) => (
+        {options.map((option, index) => (
           <Option
+            index={index}
             key={option}
-            text={option}
-            active={activeOption === option}
-            handleActive={handleActive}
+            option={option}
+            title={title}
+            active={activeIndex === index}
+            handleActive={handleVariantActives}
           />
         ))}
       </div>
