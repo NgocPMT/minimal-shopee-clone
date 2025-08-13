@@ -21,6 +21,7 @@ const ProductDetails = () => {
   console.log(id);
   const [product, setProduct] = useState<Product | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [toastIds, setToastIds] = useState<number[]>([]);
   const [quantity, setQuantity] = useState<number>(1);
   const variants = [
     { title: "Color", list: ["black", "white", "blue", "pink"] },
@@ -100,6 +101,47 @@ const ProductDetails = () => {
     );
   };
 
+  const Toast = ({ id }: { id: number }) => (
+    <div className="py-2 px-3 bg-green-600 text-white rounded-md flex items-center gap-3 max-w-72 mb-2 relative">
+      <div className="w-1/4 max-h-14 bg-white py-1 px-2 rounded-sm">
+        <img src={product?.image} alt="" className="size-12 object-contain" />
+      </div>
+      <div className="w-3/4 mr-4">
+        <p className="font-bold line-clamp-1">{product?.title}</p>
+        <p>added to cart.</p>
+      </div>
+      <button
+        className="absolute top-0.5 right-0.5 cursor-pointer"
+        onClick={() => closeToast(id)}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="size-5.5"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M6 18 18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+  );
+
+  const openToast = (timeout: number = 5000) => {
+    const id = Date.now();
+    setToastIds((prevToasts) => [...prevToasts, id]);
+    setTimeout(() => closeToast(id), timeout);
+  };
+
+  const closeToast = (id: number) => {
+    setToastIds((prevToasts) => prevToasts.filter((toastId) => toastId !== id));
+  };
+
   const handleAddToCart = () => {
     if (!product) return;
     const { id, title, image, price } = product;
@@ -122,10 +164,16 @@ const ProductDetails = () => {
         )
       );
     }
+    openToast();
   };
 
   return (
     <div className="flex flex-col md:flex-row md:min-w-[75vw] md:items-center md:justify-center md:gap-20 md:px-5 bg-white relative">
+      <div className="absolute top-4 right-4">
+        {toastIds.map((toastId) => (
+          <Toast id={toastId} />
+        ))}
+      </div>
       {error && <p>{error}</p>}
       {product && (
         <>
