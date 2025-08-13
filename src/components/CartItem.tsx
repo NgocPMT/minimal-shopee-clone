@@ -51,8 +51,9 @@ const CartItem = ({
           </p>
           <div className="flex ring ring-gray-400 justify-center rounded-sm mt-5.5">
             <button
-              className="border-r border-gray-400 text-center grow p-0.5 px-1.5"
+              className="border-r border-gray-400 text-center grow p-0.5 px-1.5 cursor-pointer disabled:bg-gray-300 disabled:cursor-auto"
               onClick={handleMinusClick}
+              disabled={quantity <= 1}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +78,7 @@ const CartItem = ({
               min={1}
             />
             <button
-              className="border-l border-gray-400 text-center grow p-0.5 px-1.5"
+              className="border-l border-gray-400 text-center grow p-0.5 px-1.5 cursor-pointer"
               onClick={handlePlusClick}
             >
               <svg
