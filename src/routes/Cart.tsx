@@ -56,6 +56,12 @@ const Cart = () => {
     );
   };
 
+  const handleDeleteItem = (id: number) => {
+    setCartItems((prevCartItems) =>
+      prevCartItems.filter((item) => item.id !== id)
+    );
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between py-2 px-6 border-b border-gray-400">
@@ -93,6 +99,7 @@ const Cart = () => {
               handleMinus={handleMinus}
               handlePlus={handlePlus}
               handleQuantityInput={handleQuantityInput}
+              handleDelete={handleDeleteItem}
             />
           ))}
           <hr />
