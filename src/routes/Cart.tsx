@@ -1,42 +1,24 @@
 import { Link } from "react-router";
 import CartItem from "../components/CartItem";
-import { useState } from "react";
-interface CartProduct {
-  id: number;
-  image: string;
-  title: string;
-  variants: string[];
-  quantity: number;
-  price: number;
-}
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 const Cart = () => {
-  const [items, setItems] = useState<CartProduct[]>([
-    {
-      id: 1,
-      image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png",
-      title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-      variants: ["XS", "Black"],
-      quantity: 1,
-      price: 109.95,
-    },
-    {
-      id: 2,
-      image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png",
-      title: "Fjallraven - Foldsack No. 2 Backpack, Fits 15 Laptops",
-      variants: ["XS", "Pink"],
-      quantity: 1,
-      price: 99.95,
-    },
-  ]);
+  const cart = useContext(CartContext);
 
-  const subtotal = items.reduce(
+  if (!cart) {
+    throw new Error("CartList must be used within CartProvider");
+  }
+
+  const { cartItems, setCartItems } = cart;
+
+  const subtotal = cartItems.reduce(
     (sum, item) => sum + item.quantity * item.price,
     0
   );
 
   const handleMinus = (id: number) => {
-    setItems((prevItems) =>
+    setCartItems((prevItems) =>
       prevItems.map((prevItem) =>
         prevItem.id === id
           ? {
@@ -52,7 +34,7 @@ const Cart = () => {
   };
 
   const handlePlus = (id: number) => {
-    setItems((prevItems) =>
+    setCartItems((prevItems) =>
       prevItems.map((prevItem) =>
         prevItem.id === id
           ? { ...prevItem, quantity: prevItem.quantity + 1 }
@@ -67,7 +49,7 @@ const Cart = () => {
   ) => {
     const newQuantity = parseInt(e.target.value);
     if (newQuantity <= 0) return;
-    setItems((prevItems) =>
+    setCartItems((prevItems) =>
       prevItems.map((prevItem) =>
         prevItem.id === id ? { ...prevItem, quantity: newQuantity } : prevItem
       )
@@ -99,7 +81,7 @@ const Cart = () => {
         <span className="font-bold text-lg">Cart</span>
       </div>
       <div className="m-4 ring ring-gray-400 rounded-lg min-h-96 p-6 flex flex-col justify-between max-w-3xl md:mx-auto sm:mt-8">
-        {items.map((item) => (
+        {cartItems.map((item) => (
           <CartItem
             id={item.id}
             image={item.image}
@@ -116,7 +98,7 @@ const Cart = () => {
         <div className="pt-2 text-gray-500 flex flex-col gap-2">
           <div className="flex justify-between">
             <p>Subtotal</p>
-            <p>${subtotal}</p>
+            <p>${subtotal.toFixed(2)}</p>
           </div>
           <div className="flex justify-between">
             <p>Shipping</p>
@@ -129,7 +111,7 @@ const Cart = () => {
         </div>
         <div className="flex justify-between pt-2 text-xl font-semibold">
           <h2 className="">Total</h2>
-          <p className="text-amber-700">${subtotal}</p>
+          <p className="text-amber-700">${subtotal.toFixed(2)}</p>
         </div>
         <button className="w-full sm:w-auto sm:self-end bg-amber-700 text-white py-2 sm:px-6 rounded-md mt-6 text-lg cursor-pointer hover:bg-amber-800">
           Checkout

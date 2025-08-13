@@ -1,7 +1,8 @@
 import { useParams } from "react-router";
 import Options from "../components/Options";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import starSvg from "../assets/starSvg";
+import { CartContext } from "../context/CartContext";
 interface Product {
   id: number;
   title: string;
@@ -35,6 +36,13 @@ const ProductDetails = () => {
     return variant.list[activeIndex];
   });
   console.log(cartVariants);
+  const cart = useContext(CartContext);
+
+  if (!cart) {
+    throw new Error("CartList must be used within CartProvider");
+  }
+
+  const { cartItems, setCartItems } = cart;
 
   useEffect(() => {
     const controller = new AbortController();
@@ -90,6 +98,15 @@ const ProductDetails = () => {
           : variantActive
       )
     );
+  };
+
+  const handleAddToCart = () => {
+    if (!product) return;
+    const { id, title, image, price } = product;
+    setCartItems([
+      ...cartItems,
+      { id, title, image, price, variants: cartVariants, quantity },
+    ]);
   };
 
   return (
@@ -186,7 +203,10 @@ const ProductDetails = () => {
               <p className="text-gray-700 text-sm">{product.description}</p>
             </section>
             <div className="fixed md:static md:mt-5 md:gap-4 bottom-0 left-0 right-0 flex justify-center md:justify-start">
-              <button className="py-3 grow md:grow-0 md:py-2.5 md:px-4 md:rounded-md  cursor-pointer bg-green-600 hover:bg-green-500 text-white flex gap-2 items-center justify-center">
+              <button
+                className="py-3 grow md:grow-0 md:py-2.5 md:px-4 md:rounded-md  cursor-pointer bg-green-600 hover:bg-green-500 text-white flex gap-2 items-center justify-center"
+                onClick={handleAddToCart}
+              >
                 Add To Card {addToCartSvg}
               </button>
               <button className="py-3 grow md:grow-0 md:py-2.5 md:px-4 md:rounded-md cursor-pointer  bg-amber-700 hover:bg-amber-600 text-white">

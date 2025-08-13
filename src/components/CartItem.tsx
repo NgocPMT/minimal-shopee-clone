@@ -33,8 +33,8 @@ const CartItem = ({
           <img src={image} alt="" className="w-full h-full object-contain" />
         </div>
         <div className="flex flex-col items-start">
-          <h5>{title}</h5>
-          <p className="text-gray-500 mb-5.5">
+          <h5 className="line-clamp-1">{title}</h5>
+          <p className="text-gray-500 mb-5.5 capitalize">
             {variants.map((variant) => variant).join(", ")}
           </p>
           <QuantityInput
