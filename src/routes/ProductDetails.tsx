@@ -168,8 +168,8 @@ const ProductDetails = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row md:min-w-[75vw] md:items-center md:justify-center md:gap-20 md:px-5 bg-white relative">
-      <div className="absolute top-4 right-4">
+    <div className="flex flex-col md:flex-row md:min-w-[75vw] md:items-center md:justify-center md:gap-20 md:px-5 bg-white relative z-10">
+      <div className="fixed md:absolute top-4 right-4">
         {toastIds.map((toastId) => (
           <Toast id={toastId} />
         ))}
