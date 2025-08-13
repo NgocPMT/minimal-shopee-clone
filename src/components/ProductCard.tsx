@@ -19,9 +19,9 @@ const ProductCard = ({
   return (
     <Link
       to={`/products/${id}`}
-      className="bg-white w-full max-w-80 border border-gray-300 hover:border-2 hover:border-amber-600 hover:-translate-y-0.5 rounded-md overflow-hidden flex flex-col max-h-72"
+      className="bg-white duration-150 w-full max-w-80 border border-gray-300 hover:border-2 hover:border-amber-600 hover:-translate-y-0.5 rounded-md overflow-hidden flex flex-col max-h-72"
     >
-      <img src={image} alt="" className="w-full h-[65%] object-contain " />
+      <img src={image} alt="" className="w-full h-[65%] object-contain" />
       <div className="p-2 flex flex-col justify-between grow-1">
         <h5 className="line-clamp-2 text-sm text-black sm:text-md">{title}</h5>
         <div className="flex justify-between items-center">
