@@ -185,7 +185,7 @@ const ProductDetails = () => {
             alt=""
             className="max-h-[27.5rem] object-contain md:"
           />
-          <div className="p-2 mb-6 max-w-[30rem] flex flex-col items-start">
+          <div className="p-2 mb-6 md:max-w-[30rem] flex flex-col items-start">
             <h5 className="text-black text-xl mb-5 md:font-bold md:mb-2">
               {product.title}
             </h5>
