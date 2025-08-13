@@ -13,7 +13,7 @@ type CartItemProps = {
     id: number,
     e: React.ChangeEvent<HTMLInputElement>
   ) => void;
-  handleDelete: (id: number) => void;
+  handleDelete: (id: number, variants: string[]) => void;
 };
 
 const CartItem = ({
@@ -29,7 +29,7 @@ const CartItem = ({
   handleDelete,
 }: CartItemProps) => {
   const handleDeleteClick = () => {
-    handleDelete(id);
+    handleDelete(id, variants);
   };
 
   return (
@@ -63,7 +63,7 @@ const CartItem = ({
             {variants.map((variant) => variant).join(", ")}
           </p>
           <QuantityInput
-            size={3}
+            size={4}
             id={id}
             quantity={quantity}
             handleMinus={handleMinus}

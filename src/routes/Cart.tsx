@@ -56,9 +56,11 @@ const Cart = () => {
     );
   };
 
-  const handleDeleteItem = (id: number) => {
+  const handleDeleteItem = (id: number, variants: string[]) => {
     setCartItems((prevCartItems) =>
-      prevCartItems.filter((item) => item.id !== id)
+      prevCartItems.filter(
+        (item) => item.id !== id || item.variants !== variants
+      )
     );
   };
 

@@ -103,10 +103,25 @@ const ProductDetails = () => {
   const handleAddToCart = () => {
     if (!product) return;
     const { id, title, image, price } = product;
-    setCartItems([
-      ...cartItems,
-      { id, title, image, price, variants: cartVariants, quantity },
-    ]);
+    const addingProduct = cartItems.find(
+      (item) =>
+        item.id === id && item.variants.toString() === cartVariants.toString()
+    );
+    if (!addingProduct) {
+      setCartItems([
+        ...cartItems,
+        { id, title, image, price, variants: cartVariants, quantity },
+      ]);
+    } else {
+      const newQuantity = addingProduct.quantity + quantity;
+      setCartItems(
+        cartItems.map((item) =>
+          item.id === id && item.variants.toString() === cartVariants.toString()
+            ? { ...item, quantity: newQuantity }
+            : item
+        )
+      );
+    }
   };
 
   return (
