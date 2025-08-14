@@ -1,10 +1,7 @@
 import { useRef, useState } from "react";
-import ProductCard from "../components/ProductCard";
-import { Link } from "react-router";
-import useProducts from "../hooks/useProducts";
+import { Link, Outlet } from "react-router";
 
 const Shop = () => {
-  const { products, error, loading } = useProducts();
   const [isFiltersShow, setIsFiltersShow] = useState<boolean>(false);
   const filterRef = useRef<HTMLDivElement>(null);
 
@@ -173,14 +170,7 @@ const Shop = () => {
           <span className="absolute bottom-0 -right-4 text-xs">Filter</span>
         </button>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2 p-2">
-        {error && <p>{error}</p>}
-        {loading && <p>Loading...</p>}
-        {products &&
-          products.map((product) => (
-            <ProductCard key={product.id} {...product} />
-          ))}
-      </div>
+      <Outlet />
     </div>
   );
 };

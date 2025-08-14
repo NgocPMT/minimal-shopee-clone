@@ -3,6 +3,8 @@ import Home from "./Home";
 import ProductDetails from "./ProductDetails";
 import Shop from "./Shop";
 import Cart from "./Cart";
+import Products from "../components/Products";
+import SearchedProducts from "../components/SearchedProducts";
 
 const routes = [
   {
@@ -14,6 +16,10 @@ const routes = [
       {
         path: "shop",
         element: <Shop />,
+        children: [
+          { index: true, element: <Products /> },
+          { path: "search/:query", element: <SearchedProducts /> },
+        ],
       },
     ],
   },
