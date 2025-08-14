@@ -5,10 +5,12 @@ import Shop from "./Shop";
 import Cart from "./Cart";
 import Products from "../components/Products";
 import SearchedProducts from "../components/SearchedProducts";
+import ErrorPage from "../components/ErrorPage";
 
 const routes = [
   {
     element: <Layout />,
+    errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <Home /> },
       { path: "cart", element: <Cart /> },
