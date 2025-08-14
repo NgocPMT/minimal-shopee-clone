@@ -3,6 +3,7 @@ import Options from "../components/Options";
 import { useEffect, useState, useContext } from "react";
 import starSvg from "../assets/starSvg";
 import { CartContext } from "../context/CartContext";
+import ProductDetailSkeleton from "../components/ProductDetailsSkeleton";
 interface Product {
   id: number;
   title: string;
@@ -21,6 +22,7 @@ const ProductDetails = () => {
   console.log(id);
   const [product, setProduct] = useState<Product | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
   const [toastIds, setToastIds] = useState<number[]>([]);
   const [quantity, setQuantity] = useState<number>(1);
   const variants = [
@@ -68,6 +70,8 @@ const ProductDetails = () => {
         } else {
           setError((err as Error).message);
         }
+      } finally {
+        setLoading(false);
       }
     };
     if (id) fetchProduct();
@@ -174,6 +178,7 @@ const ProductDetails = () => {
           <Toast id={toastId} />
         ))}
       </div>
+      {loading && <ProductDetailSkeleton />}
       {error && <p>{error}</p>}
       {product && (
         <>
