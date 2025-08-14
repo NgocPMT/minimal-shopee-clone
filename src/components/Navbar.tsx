@@ -4,6 +4,7 @@ import { CartContext } from "../context/CartContext";
 
 const Navbar = () => {
   const [searchInput, setSearchInput] = useState<string>("");
+  const [prevSearchInput, setPrevSearchInput] = useState<string>("");
   const cart = useContext(CartContext);
   const navigate = useNavigate();
 
@@ -16,9 +17,17 @@ const Navbar = () => {
     setSearchInput(e.target.value);
   };
 
+  const handleSearch = () => {
+    if (searchInput.trim().length === 0) return;
+    if (searchInput === prevSearchInput) return;
+    navigate(`/shop/search/${searchInput}`, { replace: true });
+    console.log("search");
+    setPrevSearchInput(searchInput);
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== "Enter") return;
-    navigate(`/shop/search/${searchInput}`, { replace: true });
+    handleSearch();
   };
 
   return (
@@ -27,7 +36,7 @@ const Navbar = () => {
         Shoppefy
       </Link>
       <div className="flex items-center bg-amber-50 gap-1.5 text-gray-700 py-1 px-2 w-full max-w-[40rem] rounded-sm">
-        <Link to={`/shop/search/${searchInput}`} className="cursor-pointer">
+        <button className="cursor-pointer" onClick={handleSearch}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -42,7 +51,7 @@ const Navbar = () => {
               d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
             />
           </svg>
-        </Link>
+        </button>
         <input
           type="text"
           value={searchInput}
