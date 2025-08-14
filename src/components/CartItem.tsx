@@ -39,7 +39,7 @@ const CartItem = ({
           <img src={image} alt="" className="w-full h-full object-contain" />
           <button
             onClick={handleDeleteClick}
-            className="absolute -top-3 -left-3 ring ring-gray-300 rounded-sm bg-white hover:bg-gray-300 z-10 text-red-700 p-0.5 cursor-pointer"
+            className="absolute -top-3 -left-3 ring ring-red-300 rounded-sm bg-red-100 hover:bg-gray-300 z-10 text-red-700 p-0.5 cursor-pointer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

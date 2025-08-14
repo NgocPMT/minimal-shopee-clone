@@ -104,7 +104,7 @@ const Cart = () => {
       <div className="flex items-center justify-between py-2 px-6 border-b border-gray-400">
         <Link
           to="/shop"
-          className="p-2 bg-amber-500/10 rounded-full cursor-pointer"
+          className="p-2 bg-amber-500/10 rounded-full cursor-pointer text-amber-700"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +121,7 @@ const Cart = () => {
             />
           </svg>
         </Link>
-        <span className="font-bold text-lg">Cart</span>
+        <span className="font-bold text-lg text-amber-700">Cart</span>
       </div>
       {cartItems.length > 0 ? (
         <div className="m-4 ring ring-gray-400 rounded-lg min-h-96 p-6 flex flex-col justify-between max-w-3xl md:mx-auto sm:mt-8">
