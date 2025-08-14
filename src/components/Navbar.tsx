@@ -32,7 +32,7 @@ const Navbar = () => {
   return (
     <nav className="bg-amber-700 text-amber-50 flex justify-center sm:justify-between items-center gap-4 py-2.5 pl-6 sm:pl-4 pr-4">
       <Link to="/" className="text-lg font-bold max-sm:hidden">
-        Shoppefy
+        Shopeefy
       </Link>
       <div className="flex items-center bg-amber-50 gap-1.5 text-gray-700 py-1 px-2 w-full max-w-[40rem] rounded-sm">
         <button className="cursor-pointer" onClick={handleSearch}>
