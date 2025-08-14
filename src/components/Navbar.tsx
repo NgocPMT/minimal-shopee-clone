@@ -1,10 +1,11 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 
 const Navbar = () => {
   const [searchInput, setSearchInput] = useState<string>("");
   const cart = useContext(CartContext);
+  const navigate = useNavigate();
 
   if (!cart) {
     throw new Error("CartList must be used within CartProvider");
@@ -13,6 +14,11 @@ const Navbar = () => {
 
   const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== "Enter") return;
+    navigate(`/shop/search/${searchInput}`, { replace: true });
   };
 
   return (
@@ -42,6 +48,7 @@ const Navbar = () => {
           value={searchInput}
           placeholder="What do you want to buy?"
           onChange={handleSearchInput}
+          onKeyDown={handleKeyDown}
           className="placeholder:text-amber-700 focus:outline-0 text-sm p-0.5 grow"
         />
       </div>
