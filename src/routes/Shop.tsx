@@ -1,9 +1,12 @@
 import { useRef, useState } from "react";
-import { Link, Outlet } from "react-router";
+import { Link, Outlet, useLocation } from "react-router";
 
 const Shop = () => {
   const [isFiltersShow, setIsFiltersShow] = useState<boolean>(false);
   const filterRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+
+  const isDefault = location.pathname === "/shop";
 
   const isMobileView = window.matchMedia("(max-width: 639px)").matches;
 
@@ -131,7 +134,7 @@ const Shop = () => {
       )}
       <div className="min-h-10 bg-white text-amber-700 flex items-center justify-between px-2 py-2.5">
         <Link
-          to="/shop"
+          to={isDefault ? "/" : "/shop"}
           className="p-2 bg-amber-500/10 rounded-full cursor-pointer"
         >
           <svg
