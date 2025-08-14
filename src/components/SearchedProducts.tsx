@@ -1,6 +1,7 @@
-import { Link, useParams } from "react-router";
+import { useParams } from "react-router";
 import useProducts from "../hooks/useProducts";
 import ProductCard from "./ProductCard";
+import EmptyAlert from "./EmptyAlert";
 
 const SearchedProducts = () => {
   const { products, error, loading } = useProducts();
@@ -12,6 +13,26 @@ const SearchedProducts = () => {
 
   const isFounded = products?.find((product) =>
     product.title.toLowerCase().includes(query.toLowerCase())
+  );
+
+  const emptySearchSvg = (
+    <svg
+      fill="currentColor"
+      viewBox="0 0 16 16"
+      xmlns="http://www.w3.org/2000/svg"
+      className="size-36 text-amber-700"
+    >
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        {" "}
+        <path d="m6.41 8.44h1.11l.49-4h-2.01zm.02 2h1.05v-1.1h-1.05zm5.33.63c.78-1.01 1.24-2.27 1.24-3.64 0-3.31-2.69-6-6-6s-6 2.69-6 6 2.69 6 6 6c1.37 0 2.62-.46 3.63-1.23l2.8 2.8 1.13-1.13zm-4.86.75c-2.48 0-4.49-2.02-4.49-4.5s2.01-4.49 4.49-4.49 4.5 2.02 4.5 4.49-2.03 4.5-4.5 4.5z"></path>{" "}
+      </g>
+    </svg>
   );
 
   return (
@@ -28,10 +49,12 @@ const SearchedProducts = () => {
         </div>
       ) : (
         products && (
-          <h1>
-            Sorry, We didn't find what you searched for. Try explore{" "}
-            <Link to="/shop">our products</Link>
-          </h1>
+          <EmptyAlert icon={emptySearchSvg} title="No Matching Items">
+            <p className="ml-5 text-center">
+              We didn't find what you searched for, try making a different
+              search
+            </p>
+          </EmptyAlert>
         )
       )}
     </>

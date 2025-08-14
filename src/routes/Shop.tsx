@@ -131,7 +131,7 @@ const Shop = () => {
       )}
       <div className="min-h-10 bg-white text-amber-700 flex items-center justify-between px-2 py-2.5">
         <Link
-          to="/"
+          to="/shop"
           className="p-2 bg-amber-500/10 rounded-full cursor-pointer"
         >
           <svg
