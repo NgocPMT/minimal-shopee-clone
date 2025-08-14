@@ -32,7 +32,6 @@ const useProducts = () => {
           throw new Error(`Error: ${response.status}`);
         }
         const data = await response.json();
-        console.log(data);
         setProducts(data);
       } catch (err) {
         if (err instanceof DOMException && err.name === "AbortError") {

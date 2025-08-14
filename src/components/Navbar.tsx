@@ -21,7 +21,6 @@ const Navbar = () => {
     if (searchInput.trim().length === 0) return;
     if (searchInput === prevSearchInput) return;
     navigate(`/shop/search/${searchInput}`, { replace: true });
-    console.log("search");
     setPrevSearchInput(searchInput);
   };
 
