@@ -2,6 +2,7 @@ import { useParams } from "react-router";
 import useProducts from "../hooks/useProducts";
 import ProductCard from "./ProductCard";
 import EmptyAlert from "./EmptyAlert";
+import ProductCartSkeleton from "./ProductCartSkeleton";
 
 const SearchedProducts = () => {
   const { products, error, loading } = useProducts();
@@ -38,14 +39,20 @@ const SearchedProducts = () => {
   return (
     <>
       {error && <p>{error}</p>}
-      {loading && <p>Loading...</p>}
-      {products && isFounded ? (
+      {isFounded ? (
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2 p-2">
-          {products.map((product) =>
-            product.title.toLocaleLowerCase().includes(query.toLowerCase()) ? (
-              <ProductCard key={product.id} {...product} />
-            ) : null
-          )}
+          {loading &&
+            Array(12)
+              .fill(null)
+              .map((_, index) => <ProductCartSkeleton key={index} />)}
+          {products &&
+            products.map((product) =>
+              product.title
+                .toLocaleLowerCase()
+                .includes(query.toLowerCase()) ? (
+                <ProductCard key={product.id} {...product} />
+              ) : null
+            )}
         </div>
       ) : (
         products && (

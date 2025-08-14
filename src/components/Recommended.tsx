@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import ProductCard from "./ProductCard";
 import useProducts from "../hooks/useProducts";
+import ProductCartSkeleton from "./ProductCartSkeleton";
 
 const Recommended = () => {
   const { products, error, loading } = useProducts();
@@ -14,24 +15,27 @@ const Recommended = () => {
           More &gt;
         </Link>
       </div>
-      {loading && <p>Loading...</p>}
 
       {error && <p className="text-red-500">{error}</p>}
-
-      {products && (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 auto-rows-min gap-2 bg-gray-100 px-1 py-2 lg:min-h-[45.5vh] place-content-center">
-          {products.slice(0, recommendedLength).map((product) => (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              image={product.image}
-              title={product.title}
-              price={product.price}
-              rating={product.rating}
-            />
-          ))}
-        </div>
-      )}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 auto-rows-min gap-2 bg-gray-100 px-1 py-2 lg:min-h-[45.5vh] place-content-center">
+        {loading &&
+          Array(6)
+            .fill(null)
+            .map((_, index) => <ProductCartSkeleton key={index} />)}
+        {products &&
+          products
+            .slice(0, recommendedLength)
+            .map((product) => (
+              <ProductCard
+                key={product.id}
+                id={product.id}
+                image={product.image}
+                title={product.title}
+                price={product.price}
+                rating={product.rating}
+              />
+            ))}
+      </div>
     </section>
   );
 };
