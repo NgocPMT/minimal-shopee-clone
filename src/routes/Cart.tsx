@@ -1,11 +1,18 @@
 import { Link } from "react-router";
 import CartItem from "../components/CartItem";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import EmptyAlert from "../components/EmptyAlert";
 
+interface DeleteItem {
+  id: number;
+  variants: string[];
+}
+
 const Cart = () => {
   const cart = useContext(CartContext);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [deleteItem, setDeleteItem] = useState<DeleteItem | null>(null);
 
   if (!cart) {
     throw new Error("CartList must be used within CartProvider");
@@ -63,6 +70,22 @@ const Cart = () => {
         (item) => item.id !== id || item.variants !== variants
       )
     );
+  };
+
+  const openModel = (id: number, variants: string[]) => {
+    setIsModalOpen(true);
+    setDeleteItem({ id, variants });
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setDeleteItem(null);
+  };
+
+  const handleConfirmDelete = () => {
+    if (!deleteItem) return;
+    handleDeleteItem(deleteItem?.id, deleteItem?.variants);
+    closeModal();
   };
 
   const emptyCartSvg = (
@@ -123,10 +146,54 @@ const Cart = () => {
         </Link>
         <span className="font-bold text-lg text-amber-700">Cart</span>
       </div>
+      {isModalOpen && (
+        <div
+          className="fixed inset-0 bg-black/35 flex justify-center items-center z-30"
+          onClick={closeModal}
+        >
+          <div
+            className="max-w-96 bg-white rounded-lg flex flex-col items-center p-7 ring ring-gray-300"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-20 text-red-700"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+              />
+            </svg>
+            <p className="font-semibold text-xl mt-2">
+              Do you really want to delete it?
+            </p>
+            <div className="flex gap-1 mt-4 justify-center w-full">
+              <button
+                className="py-1.5 px-5 bg-red-700 text-white rounded-md hover:bg-red-800 cursor-pointer"
+                onClick={handleConfirmDelete}
+              >
+                Confirm Delete
+              </button>
+              <button
+                className="py-1.5 px-5 bg-gray-200 rounded-md hover:bg-gray-300 cursor-pointer"
+                onClick={closeModal}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       {cartItems.length > 0 ? (
         <div className="m-4 ring ring-gray-400 rounded-lg min-h-96 p-6 flex flex-col justify-between max-w-3xl md:mx-auto sm:mt-8">
           {cartItems.map((item) => (
             <CartItem
+              key={`${item.id}-${item.variants}`}
               id={item.id}
               image={item.image}
               title={item.title}
@@ -136,7 +203,7 @@ const Cart = () => {
               handleMinus={handleMinus}
               handlePlus={handlePlus}
               handleQuantityInput={handleQuantityInput}
-              handleDelete={handleDeleteItem}
+              handleClick={() => openModel(item.id, item.variants)}
             />
           ))}
           <hr />
@@ -164,7 +231,7 @@ const Cart = () => {
         </div>
       ) : (
         <EmptyAlert icon={emptyCartSvg} title="Your shopping cart is empty.">
-          <p className="ml-5 text-center">
+          <p className="text-center">
             Let explore our{" "}
             <Link to="/shop" className="underline text-amber-700 text-lg">
               amazing products

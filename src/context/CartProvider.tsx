@@ -2,7 +2,7 @@ import { useMemo, useState, type ReactNode } from "react";
 
 import { CartContext } from "./CartContext";
 
-interface CartProduct {
+export interface CartProduct {
   id: number;
   image: string;
   title: string;

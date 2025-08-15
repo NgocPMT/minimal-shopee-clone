@@ -13,7 +13,7 @@ type CartItemProps = {
     id: number,
     e: React.ChangeEvent<HTMLInputElement>
   ) => void;
-  handleDelete: (id: number, variants: string[]) => void;
+  handleClick: () => void;
 };
 
 const CartItem = ({
@@ -26,19 +26,15 @@ const CartItem = ({
   handleMinus,
   handlePlus,
   handleQuantityInput,
-  handleDelete,
+  handleClick,
 }: CartItemProps) => {
-  const handleDeleteClick = () => {
-    handleDelete(id, variants);
-  };
-
   return (
     <div className="flex pb-2 mb-4 gap-4 items-center justify-between">
       <div className="flex gap-5">
         <div className="size-24 ring ring-amber-700 rounded-md p-1.5 relative">
           <img src={image} alt="" className="w-full h-full object-contain" />
           <button
-            onClick={handleDeleteClick}
+            onClick={handleClick}
             className="absolute -top-3 -left-3 ring ring-red-300 rounded-sm bg-red-100 hover:bg-gray-300 z-10 text-red-700 p-0.5 cursor-pointer"
           >
             <svg
