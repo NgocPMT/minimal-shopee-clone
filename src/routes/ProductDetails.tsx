@@ -175,12 +175,12 @@ const ProductDetails = () => {
   return (
     <div className="bg-white">
       <Breadcrumbs />
+      <div className="fixed md:absolute top-16 right-4 max-h-[24.5rem] overflow-hidden z-20">
+        {toastIds.map((toastId) => (
+          <Toast id={toastId} />
+        ))}
+      </div>
       <div className="flex flex-col md:flex-row md:min-w-[75vw] md:items-center md:justify-center md:gap-20 md:px-5 relative z-10">
-        <div className="fixed md:absolute top-4 right-4">
-          {toastIds.map((toastId) => (
-            <Toast id={toastId} />
-          ))}
-        </div>
         {loading && <ProductDetailSkeleton />}
         {error && <p>{error}</p>}
         {product && (
