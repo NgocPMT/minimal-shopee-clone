@@ -4,6 +4,7 @@ import { useEffect, useState, useContext } from "react";
 import starSvg from "../assets/starSvg";
 import { CartContext } from "../context/CartContext";
 import ProductDetailSkeleton from "../components/ProductDetailsSkeleton";
+import Breadcrumbs from "../components/Breadcrumbs";
 interface Product {
   id: number;
   title: string;
@@ -172,118 +173,123 @@ const ProductDetails = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row md:min-w-[75vw] md:items-center md:justify-center md:gap-20 md:px-5 bg-white relative z-10">
-      <div className="fixed md:absolute top-4 right-4">
-        {toastIds.map((toastId) => (
-          <Toast id={toastId} />
-        ))}
-      </div>
-      {loading && <ProductDetailSkeleton />}
-      {error && <p>{error}</p>}
-      {product && (
-        <>
-          <img
-            src={
-              product.image ||
-              "https://blocks.astratic.com/img/general-img-landscape.png"
-            }
-            alt=""
-            className="max-h-[27.5rem] max-w-96 object-contain"
-          />
-          <div className="p-2 mb-6 md:max-w-[30rem] flex flex-col items-start">
-            <h5 className="text-black text-xl mb-5 md:font-bold md:mb-2">
-              {product.title}
-            </h5>
-            <div className="flex justify-between w-full">
-              <p className="mb-2 text-2xl text-amber-700">{`$${product.price}`}</p>
-              <p className="flex items-center text-lg text-gray-500">
-                {product.rating.rate}
-                {starSvg}
-                <span>({product.rating.count} rated)</span>
-              </p>
-            </div>
-            <hr className="mb-2 w-full" />
-            {variants.map((variant, index) => {
-              const activeIndex = variantActives[index].active;
-              return (
-                <Options
-                  title={variant.title}
-                  activeIndex={activeIndex}
-                  options={variant.list}
-                  handleVariantActives={handleVariantActives}
-                />
-              );
-            })}
-            <h5 className="font-bold text-black mb-2 text-md">Quantity</h5>
-            <div className="flex ring ring-gray-400 justify-center rounded-sm">
-              <button
-                className="border-r border-gray-400 text-center grow py-1.5 px-2.5 cursor-pointer disabled:bg-gray-300 disabled:cursor-auto"
-                onClick={handleMinusClick}
-                disabled={quantity <= 1}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="size-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M5 12h14"
-                  />
-                </svg>
-              </button>
-              <input
-                type="number"
-                value={quantity}
-                className="text-center max-w-12 grow"
-                onChange={handleQuantityInputChange}
-                min={1}
+    <div className="bg-white">
+      <Breadcrumbs />
+      <div className="flex flex-col md:flex-row md:min-w-[75vw] md:items-center md:justify-center md:gap-20 md:px-5 relative z-10">
+        <div className="fixed md:absolute top-4 right-4">
+          {toastIds.map((toastId) => (
+            <Toast id={toastId} />
+          ))}
+        </div>
+        {loading && <ProductDetailSkeleton />}
+        {error && <p>{error}</p>}
+        {product && (
+          <>
+            <div className="h-[27.5rem] max-w-96 mx-auto md:mx-0">
+              <img
+                src={
+                  product.image ||
+                  "https://blocks.astratic.com/img/general-img-landscape.png"
+                }
+                alt=""
+                className="w-full h-full object-contain"
               />
-              <button
-                className="border-r border-gray-400 text-center grow py-1.5 px-2.5 cursor-pointer disabled:bg-gray-300 disabled:cursor-auto"
-                onClick={handlePlusClick}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="size-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 4.5v15m7.5-7.5h-15"
-                  />
-                </svg>
-              </button>
             </div>
-            <hr className="mt-4 w-full" />
-            <section>
-              <h5 className="text-black text-md font-bold mt-2 mb-1">
-                Description
+            <div className="p-2 mb-6 md:max-w-[30rem] flex flex-col items-start">
+              <h5 className="text-black text-xl mb-5 md:font-bold md:mb-2">
+                {product.title}
               </h5>
-              <p className="text-gray-700 text-sm">{product.description}</p>
-            </section>
-            <div className="fixed md:static md:mt-5 md:gap-4 bottom-0 left-0 right-0 flex justify-center md:justify-start">
-              <button
-                className="py-3 grow md:grow-0 md:py-2.5 md:px-4 md:rounded-md  cursor-pointer bg-green-600 hover:bg-green-500 text-white flex gap-2 items-center justify-center"
-                onClick={handleAddToCart}
-              >
-                Add To Card {addToCartSvg}
-              </button>
-              <button className="py-3 grow md:grow-0 md:py-2.5 md:px-4 md:rounded-md cursor-pointer  bg-amber-700 hover:bg-amber-600 text-white">
-                Buy Now
-              </button>
+              <div className="flex justify-between w-full">
+                <p className="mb-2 text-2xl text-amber-700">{`$${product.price}`}</p>
+                <p className="flex items-center text-lg text-gray-500">
+                  {product.rating.rate}
+                  {starSvg}
+                  <span>({product.rating.count} rated)</span>
+                </p>
+              </div>
+              <hr className="mb-2 w-full" />
+              {variants.map((variant, index) => {
+                const activeIndex = variantActives[index].active;
+                return (
+                  <Options
+                    title={variant.title}
+                    activeIndex={activeIndex}
+                    options={variant.list}
+                    handleVariantActives={handleVariantActives}
+                  />
+                );
+              })}
+              <h5 className="font-bold text-black mb-2 text-md">Quantity</h5>
+              <div className="flex ring ring-gray-400 justify-center rounded-sm">
+                <button
+                  className="border-r border-gray-400 text-center grow py-1.5 px-2.5 cursor-pointer disabled:bg-gray-300 disabled:cursor-auto"
+                  onClick={handleMinusClick}
+                  disabled={quantity <= 1}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 12h14"
+                    />
+                  </svg>
+                </button>
+                <input
+                  type="number"
+                  value={quantity}
+                  className="text-center max-w-12 grow"
+                  onChange={handleQuantityInputChange}
+                  min={1}
+                />
+                <button
+                  className="border-r border-gray-400 text-center grow py-1.5 px-2.5 cursor-pointer disabled:bg-gray-300 disabled:cursor-auto"
+                  onClick={handlePlusClick}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 4.5v15m7.5-7.5h-15"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <hr className="mt-4 w-full" />
+              <section>
+                <h5 className="text-black text-md font-bold mt-2 mb-1">
+                  Description
+                </h5>
+                <p className="text-gray-700 text-sm">{product.description}</p>
+              </section>
+              <div className="fixed md:static md:mt-5 md:gap-4 bottom-0 left-0 right-0 flex justify-center md:justify-start">
+                <button
+                  className="py-3 grow md:grow-0 md:py-2.5 md:px-4 md:rounded-md  cursor-pointer bg-green-600 hover:bg-green-500 text-white flex gap-2 items-center justify-center"
+                  onClick={handleAddToCart}
+                >
+                  Add To Card {addToCartSvg}
+                </button>
+                <button className="py-3 grow md:grow-0 md:py-2.5 md:px-4 md:rounded-md cursor-pointer  bg-amber-700 hover:bg-amber-600 text-white">
+                  Buy Now
+                </button>
+              </div>
             </div>
-          </div>
-        </>
-      )}
+          </>
+        )}
+      </div>
     </div>
   );
 };

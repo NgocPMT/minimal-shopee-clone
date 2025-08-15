@@ -6,6 +6,7 @@ import Cart from "./Cart";
 import Products from "../components/Products";
 import SearchedProducts from "../components/SearchedProducts";
 import ErrorPage from "../components/ErrorPage";
+import { Navigate } from "react-router";
 
 const routes = [
   {
@@ -23,6 +24,7 @@ const routes = [
           { path: "search/:query", element: <SearchedProducts /> },
         ],
       },
+      { path: "products", element: <Navigate to="/shop" /> },
     ],
   },
 ];
